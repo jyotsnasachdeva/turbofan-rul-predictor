@@ -66,6 +66,11 @@ const modelRows = Object.values(metrics);
 const format = (number) => (number === null ? "N/A" : Number(number).toFixed(2));
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
+const apiBaseUrl =
+  window.RUL_API_URL ||
+  new URLSearchParams(window.location.search).get("api") ||
+  localStorage.getItem("RUL_API_URL") ||
+  "";
 
 const canvas = $("#rmse-chart");
 const ctx = canvas.getContext("2d");
@@ -191,7 +196,7 @@ function parseSensorImpact() {
   return Math.min(18, averageMagnitude % 22);
 }
 
-function predict(event) {
+async function predict(event) {
   event.preventDefault();
   updateRangeReadouts();
 
@@ -203,6 +208,43 @@ function predict(event) {
   const selectedBest = bestForSubset(subset);
   const selectedResult = selectedBest.results[subset];
   const subsetConfig = subsets[subset];
+
+  if (apiBaseUrl) {
+    try {
+      const response = await fetch(`${apiBaseUrl.replace(/\/$/, "")}/sample/${subset}`);
+      if (response.ok) {
+        const result = await response.json();
+        const rul = Math.round(result.predicted_rul_cycles);
+        const confidence = Math.max(42, Math.min(92, Math.round(96 - selectedResult.rmse * 1.45)));
+        const risk =
+          result.risk_band === "Critical"
+            ? { label: "Critical", className: "critical" }
+            : result.risk_band === "Watch"
+              ? { label: "Watch", className: "watch" }
+              : { label: "Stable", className: "stable" };
+
+        $("#rul-output").textContent = rul;
+        $("#confidence-fill").style.width = `${confidence}%`;
+        $("#recommendation").textContent =
+          risk.label === "Critical"
+            ? "Real model inference indicates a short remaining useful life. Prioritize inspection."
+            : risk.label === "Watch"
+              ? "Real model inference suggests a watch zone. Increase monitoring frequency."
+              : "Real model inference indicates stable remaining life for the sample window.";
+        $("#rmse-output").textContent = format(selectedResult.rmse);
+        $("#score-output").textContent = format(selectedResult.score);
+        $("#dataset-output").textContent = result.subset;
+        $("#selected-model").textContent = result.model_name.replaceAll("_", "-");
+
+        const riskPill = $("#risk-pill");
+        riskPill.textContent = risk.label;
+        riskPill.className = `risk-pill ${risk.className}`;
+        return;
+      }
+    } catch (error) {
+      console.warn("Model API unavailable, using browser demo prediction.", error);
+    }
+  }
 
   const degradation =
     cycle * 0.34 +
