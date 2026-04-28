@@ -1,0 +1,20 @@
+{
+  "steps": [
+    "1. Select features from model_config.json features[ds]",
+    "2. Load scaler from scaler_{ds}.pkl",
+    "3. Transform input: scaler.transform(X)",
+    "4. Create window: last 50 cycles \u2192 shape (1, 50, n_features)",
+    "5. Predict: model.predict(window)",
+    "6. Denormalize: prediction * 125 = RUL in cycles"
+  ],
+  "input_format": {
+    "type": "CSV or numpy array",
+    "shape": "(n_cycles, n_features) \u2014 minimum 50 rows",
+    "features": "see selected_features.json per subset"
+  },
+  "output_format": {
+    "raw": "float in [0, 1]",
+    "denormalized": "float in [0, 125] cycles",
+    "interpretation": "predicted remaining cycles before failure"
+  }
+}

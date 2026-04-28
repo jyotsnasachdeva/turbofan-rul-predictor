@@ -1,0 +1,64 @@
+{
+  "total_real_rows": 160359,
+  "total_synthetic_rows": 89641,
+  "total_combined_rows": 250197,
+  "augmentation_methods": [
+    "Gaussian Noise Jitter",
+    "Time Warping",
+    "Mixup (Trajectory Blending)"
+  ],
+  "subsets": {
+    "FD001": {
+      "real_rows": 20631,
+      "synthetic_rows": 11570,
+      "combined_rows": 32201,
+      "n_features": 25,
+      "train_samples": 17183,
+      "val_samples": 3608,
+      "hold_samples": 3962,
+      "test_engines": 93,
+      "window_size": 50,
+      "operating_conditions": 1,
+      "fault_modes": 1
+    },
+    "FD002": {
+      "real_rows": 53759,
+      "synthetic_rows": 30080,
+      "combined_rows": 83839,
+      "n_features": 25,
+      "train_samples": 44866,
+      "val_samples": 9569,
+      "hold_samples": 9902,
+      "test_engines": 235,
+      "window_size": 50,
+      "operating_conditions": 6,
+      "fault_modes": 1
+    },
+    "FD003": {
+      "real_rows": 24720,
+      "synthetic_rows": 13826,
+      "combined_rows": 38546,
+      "n_features": 25,
+      "train_samples": 21653,
+      "val_samples": 4564,
+      "hold_samples": 4832,
+      "test_engines": 97,
+      "window_size": 50,
+      "operating_conditions": 1,
+      "fault_modes": 2
+    },
+    "FD004": {
+      "real_rows": 61249,
+      "synthetic_rows": 34362,
+      "combined_rows": 95611,
+      "n_features": 25,
+      "train_samples": 52242,
+      "val_samples": 12341,
+      "hold_samples": 12261,
+      "test_engines": 228,
+      "window_size": 50,
+      "operating_conditions": 6,
+      "fault_modes": 2
+    }
+  }
+}

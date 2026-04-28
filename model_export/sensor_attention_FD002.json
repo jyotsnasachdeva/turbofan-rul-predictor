@@ -1,0 +1,190 @@
+{
+  "dataset": "FD002",
+  "model": "SA-FCLCNN-TF",
+  "feature_names": [
+    "time_cycles",
+    "op_setting_1",
+    "op_setting_2",
+    "op_setting_3",
+    "sensor_1",
+    "sensor_2",
+    "sensor_3",
+    "sensor_4",
+    "sensor_5",
+    "sensor_6",
+    "sensor_7",
+    "sensor_8",
+    "sensor_9",
+    "sensor_10",
+    "sensor_11",
+    "sensor_12",
+    "sensor_13",
+    "sensor_14",
+    "sensor_15",
+    "sensor_16",
+    "sensor_17",
+    "sensor_18",
+    "sensor_19",
+    "sensor_20",
+    "sensor_21"
+  ],
+  "attention_weights": [
+    0.022078940644860268,
+    0.033767689019441605,
+    0.0234058890491724,
+    0.039080649614334106,
+    0.016879092901945114,
+    0.034137990325689316,
+    0.019872937351465225,
+    0.021954862400889397,
+    0.060100190341472626,
+    0.04252560809254646,
+    0.03066449612379074,
+    0.022454721853137016,
+    0.021520501002669334,
+    0.028016336262226105,
+    0.09570777416229248,
+    0.034132760018110275,
+    0.06520681083202362,
+    0.08406535536050797,
+    0.024163376539945602,
+    0.03640999272465706,
+    0.09696074575185776,
+    0.022960616275668144,
+    0.03634433448314667,
+    0.05071143060922623,
+    0.0368763729929924
+  ],
+  "top3_sensors": [
+    "sensor_17",
+    "sensor_11",
+    "sensor_14"
+  ],
+  "ranked_features": [
+    {
+      "rank": 1,
+      "feature": "sensor_17",
+      "weight": 0.09696074575185776
+    },
+    {
+      "rank": 2,
+      "feature": "sensor_11",
+      "weight": 0.09570777416229248
+    },
+    {
+      "rank": 3,
+      "feature": "sensor_14",
+      "weight": 0.08406535536050797
+    },
+    {
+      "rank": 4,
+      "feature": "sensor_13",
+      "weight": 0.06520681083202362
+    },
+    {
+      "rank": 5,
+      "feature": "sensor_5",
+      "weight": 0.060100190341472626
+    },
+    {
+      "rank": 6,
+      "feature": "sensor_20",
+      "weight": 0.05071143060922623
+    },
+    {
+      "rank": 7,
+      "feature": "sensor_6",
+      "weight": 0.04252560809254646
+    },
+    {
+      "rank": 8,
+      "feature": "op_setting_3",
+      "weight": 0.039080649614334106
+    },
+    {
+      "rank": 9,
+      "feature": "sensor_21",
+      "weight": 0.0368763729929924
+    },
+    {
+      "rank": 10,
+      "feature": "sensor_16",
+      "weight": 0.03640999272465706
+    },
+    {
+      "rank": 11,
+      "feature": "sensor_19",
+      "weight": 0.03634433448314667
+    },
+    {
+      "rank": 12,
+      "feature": "sensor_2",
+      "weight": 0.034137990325689316
+    },
+    {
+      "rank": 13,
+      "feature": "sensor_12",
+      "weight": 0.034132760018110275
+    },
+    {
+      "rank": 14,
+      "feature": "op_setting_1",
+      "weight": 0.033767689019441605
+    },
+    {
+      "rank": 15,
+      "feature": "sensor_7",
+      "weight": 0.03066449612379074
+    },
+    {
+      "rank": 16,
+      "feature": "sensor_10",
+      "weight": 0.028016336262226105
+    },
+    {
+      "rank": 17,
+      "feature": "sensor_15",
+      "weight": 0.024163376539945602
+    },
+    {
+      "rank": 18,
+      "feature": "op_setting_2",
+      "weight": 0.0234058890491724
+    },
+    {
+      "rank": 19,
+      "feature": "sensor_18",
+      "weight": 0.022960616275668144
+    },
+    {
+      "rank": 20,
+      "feature": "sensor_8",
+      "weight": 0.022454721853137016
+    },
+    {
+      "rank": 21,
+      "feature": "time_cycles",
+      "weight": 0.022078940644860268
+    },
+    {
+      "rank": 22,
+      "feature": "sensor_4",
+      "weight": 0.021954862400889397
+    },
+    {
+      "rank": 23,
+      "feature": "sensor_9",
+      "weight": 0.021520501002669334
+    },
+    {
+      "rank": 24,
+      "feature": "sensor_3",
+      "weight": 0.019872937351465225
+    },
+    {
+      "rank": 25,
+      "feature": "sensor_1",
+      "weight": 0.016879092901945114
+    }
+  ]
+}
