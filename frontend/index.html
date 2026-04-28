@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A practical dashboard for turbofan engine remaining useful life prediction using NASA C-MAPSS experiment results."
+    />
+    <title>Turbofan RUL Predictor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="Turbofan RUL Predictor">
+        <span class="brand-mark">RUL</span>
+        <span>
+          <strong>Turbofan RUL Predictor</strong>
+          <small>Predictive maintenance console</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#predictor">Predict</a>
+        <a href="#models">Models</a>
+        <a href="#insights">Insights</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">NASA C-MAPSS | Deep learning RUL estimation</p>
+          <h1>Estimate engine life before failure becomes downtime.</h1>
+          <p class="hero-text">
+            A clean interface for presenting turbofan health, comparing model performance,
+            and generating maintenance-ready Remaining Useful Life estimates.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#predictor">Run prediction</a>
+            <a class="secondary-action" href="#models">View results</a>
+          </div>
+        </div>
+        <div class="engine-panel" aria-label="Engine health summary">
+          <div class="engine-visual" aria-hidden="true">
+            <span class="fan-ring"></span>
+            <span class="fan-core"></span>
+            <span class="flow-line line-a"></span>
+            <span class="flow-line line-b"></span>
+            <span class="flow-line line-c"></span>
+          </div>
+          <div class="engine-stats">
+            <div>
+              <span class="stat-label">Best FD001 RMSE</span>
+              <strong id="hero-rmse">12.56</strong>
+            </div>
+            <div>
+              <span class="stat-label">Datasets</span>
+              <strong>4</strong>
+            </div>
+            <div>
+              <span class="stat-label">Models compared</span>
+              <strong>6</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-band" aria-label="Project metrics">
+        <div class="metric">
+          <span>Primary task</span>
+          <strong>Remaining Useful Life</strong>
+        </div>
+        <div class="metric">
+          <span>Input type</span>
+          <strong>Multivariate sensor windows</strong>
+        </div>
+        <div class="metric">
+          <span>Best model family</span>
+          <strong id="best-model-name">SA-FCLCNN-TF</strong>
+        </div>
+        <div class="metric">
+          <span>Decision output</span>
+          <strong>RUL + risk band</strong>
+        </div>
+      </section>
+
+      <section class="workspace" id="predictor">
+        <div class="section-heading">
+          <p class="eyebrow">Prediction workspace</p>
+          <h2>Engine health console</h2>
+        </div>
+        <div class="predictor-grid">
+          <form class="control-panel" id="prediction-form">
+            <label>
+              C-MAPSS subset
+              <select id="dataset">
+                <option value="FD001">FD001: single operating condition</option>
+                <option value="FD002">FD002: six operating conditions</option>
+                <option value="FD003">FD003: two fault modes</option>
+                <option value="FD004">FD004: six conditions + two faults</option>
+              </select>
+            </label>
+            <label>
+              Latest cycle count
+              <input id="cycle" type="number" min="1" max="360" value="168" />
+            </label>
+            <label>
+              Exhaust temperature margin
+              <input id="temperature" type="range" min="0" max="100" value="48" />
+              <span class="range-readout"><span id="temperature-value">48</span>% deviation</span>
+            </label>
+            <label>
+              Vibration severity
+              <input id="vibration" type="range" min="0" max="100" value="36" />
+              <span class="range-readout"><span id="vibration-value">36</span>% deviation</span>
+            </label>
+            <label>
+              Pressure drift
+              <input id="pressure" type="range" min="0" max="100" value="28" />
+              <span class="range-readout"><span id="pressure-value">28</span>% deviation</span>
+            </label>
+            <label>
+              Optional sensor row
+              <textarea
+                id="sensor-row"
+                rows="4"
+                placeholder="Paste one comma-separated engine sensor row here for your demo or viva."
+              ></textarea>
+            </label>
+            <button type="submit">Predict RUL</button>
+          </form>
+
+          <article class="result-panel" aria-live="polite">
+            <div class="result-header">
+              <span id="risk-pill" class="risk-pill stable">Stable</span>
+              <span id="selected-model">Best available model</span>
+            </div>
+            <div class="rul-number">
+              <strong id="rul-output">92</strong>
+              <span>cycles remaining</span>
+            </div>
+            <div class="confidence-bar" aria-label="Prediction confidence">
+              <span id="confidence-fill"></span>
+            </div>
+            <p id="recommendation">
+              Continue routine monitoring. Schedule a sensor trend review within the next maintenance window.
+            </p>
+            <div class="mini-metrics">
+              <div>
+                <span>Expected RMSE</span>
+                <strong id="rmse-output">12.56</strong>
+              </div>
+              <div>
+                <span>NASA score</span>
+                <strong id="score-output">236.87</strong>
+              </div>
+              <div>
+                <span>Dataset</span>
+                <strong id="dataset-output">FD001</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="models" id="models">
+        <div class="section-heading">
+          <p class="eyebrow">Experiment results</p>
+          <h2>Model comparison by subset</h2>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Dataset selector">
+          <button class="tab active" data-subset="FD001" type="button">FD001</button>
+          <button class="tab" data-subset="FD002" type="button">FD002</button>
+          <button class="tab" data-subset="FD003" type="button">FD003</button>
+          <button class="tab" data-subset="FD004" type="button">FD004</button>
+        </div>
+        <div class="chart-card">
+          <canvas id="rmse-chart" height="280" aria-label="RMSE comparison chart"></canvas>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>RMSE</th>
+                <th>NASA score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="insights" id="insights">
+        <div class="section-heading">
+          <p class="eyebrow">Model evidence</p>
+          <h2>Sensor behaviour and training insight</h2>
+        </div>
+        <div class="insight-grid">
+          <figure>
+            <img src="./assets/sensor_degradation.png" alt="Sensor degradation plot" />
+            <figcaption>Sensor degradation patterns used to understand engine health trends.</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/sensor_selection.png" alt="Sensor selection plot" />
+            <figcaption>Selected signals that carry stronger prognostic information.</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/lstm_learning_curves.png" alt="LSTM learning curves" />
+            <figcaption>Training and validation curves for the sequence-learning baseline.</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
