@@ -1,6 +1,8 @@
 # Turbofan RUL Predictor
 
-Frontend, notebook, exported models, and backend API for Jyotsna's turbofan engine Remaining Useful Life project.
+Deep learning project for Remaining Useful Life (RUL) prediction on NASA C-MAPSS turbofan engine degradation data.
+
+This repository contains my final Jupyter notebook, experiment outputs, and model comparison results for turbofan engine predictive maintenance. The goal is to estimate how many cycles remain before engine failure using multivariate time-series sensor data.
 
 ## Live Links
 
